@@ -1,0 +1,285 @@
+/* ================================================================
+   HOLY FAITH PUBLIC SCHOOL — teacher3.css
+   Matches global style.css theme: Royal Manuscript
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+/* ── VARIABLES (same as previous pages) ── */
+:root {
+  --navy:    #0b2444;
+  --navy-2:  #0f3060;
+  --gold:    #c8a44a;
+  --gold-2:  #e8c26a;
+  --gold-3:  #f5dfa0;
+  --cream:   #faf6ee;
+  --cream-2: #f2ead8;
+  --white:   #ffffff;
+  --ink:     #141420;
+  --muted:   #5e5e78;
+
+  --ff-head: 'Cormorant Garamond', Georgia, serif;
+  --ff-body: 'DM Sans', sans-serif;
+  --ease:    cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--ff-body);
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Parchment bg glow */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 10% 10%, rgba(200,164,74,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 90%, rgba(11,36,68,0.06)  0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ================================================================
+   TEACHERS SECTION
+   ================================================================ */
+.teachers-section {
+  position: relative;
+  background: var(--navy);
+  min-height: 100vh;
+  padding: 60px 40px 100px;
+  overflow: hidden;
+}
+
+/* diagonal stripe texture */
+.teachers-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 50px,
+    rgba(255,255,255,0.016) 50px,
+    rgba(255,255,255,0.016) 51px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── HEADING ── */
+.teachers-section h1 {
+  font-family: var(--ff-head);
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 700;
+  color: var(--white);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 50px;
+  animation: fade-down 0.6s var(--ease) both;
+}
+
+.teachers-section h1::after {
+  content: '';
+  display: block;
+  width: 65px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  margin: 16px auto 0;
+}
+
+@keyframes fade-down {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================================================
+   TEACHERS GRID CONTAINER
+   ================================================================ */
+.teacher-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+/* ================================================================
+   TEACHER CARDS
+   ================================================================ */
+.teacher-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(200, 164, 74, 0.18);
+  border-radius: 10px;
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s var(--ease), border-color 0.4s, box-shadow 0.4s;
+  animation: box-in 0.8s var(--ease) both;
+}
+
+/* Card Entry Animation Delay */
+.teacher-card:nth-child(1) { animation-delay: 0.1s; }
+.teacher-card:nth-child(2) { animation-delay: 0.25s; }
+.teacher-card:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes box-in {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Top Shimmer line on Hover */
+.teacher-card::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 20%; right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-2), var(--gold-3), var(--gold-2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.teacher-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(200, 164, 74, 0.45);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.teacher-card:hover::before {
+  opacity: 1;
+}
+
+/* ── TEACHER IMAGE ── */
+.teacher-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(200, 164, 74, 0.15);
+  filter: grayscale(15%) brightness(95%);
+  transition: filter 0.4s, transform 0.4s;
+}
+
+.teacher-card:hover img {
+  filter: grayscale(0%) brightness(100%);
+}
+
+/* ── TEACHER INFO ── */
+.teacher-info {
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.teacher-info h2 {
+  font-family: var(--ff-head);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.teacher-info p {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+/* ── SUBJECT TAG ── */
+.teacher-info span {
+  align-self: flex-start;
+  font-family: var(--ff-head);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--gold-2);
+  border-left: 2px solid var(--gold);
+  padding-left: 10px;
+}
+
+/* ================================================================
+   BACK LINK BUTTON
+   ================================================================ */
+.back-home {
+  position: absolute;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  z-index: 5;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.2s, letter-spacing 0.25s var(--ease);
+}
+
+.back-home:hover {
+  color: var(--gold-2);
+  letter-spacing: 0.18em;
+}
+
+/* ================================================================
+   RESPONSIVE DESIGN
+   ================================================================ */
+@media (max-width: 992px) {
+  .teacher-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .teachers-section {
+    padding: 40px 20px 90px;
+  }
+  .teacher-container {
+    grid-template-columns: 1fr;
+    max-width: 450px;
+  }
+  .teacher-card img {
+    height: 320px;
+  }
+}
+/* ================================================================
+   BACK LINK BUTTON (Updated to Top-Left)
+   ================================================================ */
+.back-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 5;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  padding: 30px 0 20px 40px; /* Top aur Left se space badha diya hai */
+  transition: gap 0.25s var(--ease), color 0.2s;
+}
+
+.back-home:hover {
+  gap: 14px;
+  color: var(--gold-2);
+}

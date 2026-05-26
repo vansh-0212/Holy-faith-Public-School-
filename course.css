@@ -1,0 +1,365 @@
+/* ================================================================
+   HOLY FAITH PUBLIC SCHOOL — course.css
+   Matches: style.css + about.css  |  Theme: Royal Manuscript
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+:root {
+  --navy:    #0b2444;
+  --navy-2:  #0f3060;
+  --navy-3:  #163e7a;
+  --gold:    #c8a44a;
+  --gold-2:  #e8c26a;
+  --gold-3:  #f5dfa0;
+  --cream:   #faf6ee;
+  --cream-2: #f2ead8;
+  --white:   #ffffff;
+  --ink:     #141420;
+  --muted:   #5e5e78;
+  --ff-head: 'Cormorant Garamond', Georgia, serif;
+  --ff-body: 'DM Sans', sans-serif;
+  --ease:    cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--ff-body);
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 10%, rgba(200,164,74,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 90%, rgba(11,36,68,0.06)  0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+::selection { background: var(--gold); color: var(--navy); }
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: var(--cream-2); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 99px; }
+
+/* ================================================================
+   BACK LINK
+   ================================================================ */
+.info-section > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  padding: 14px 0 0 60px;
+  transition: gap 0.25s var(--ease), color 0.2s;
+}
+.info-section > a::before { content: '←'; font-size: 1rem; }
+.info-section > a:hover   { gap: 14px; color: var(--gold-2); }
+
+/* ================================================================
+   INFO SECTION  (full page wrapper)
+   ================================================================ */
+.info-section {
+  position: relative;
+  background: var(--navy);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 100px;
+  overflow: hidden;
+}
+
+/* diagonal stripe texture */
+.info-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 50px,
+    rgba(255,255,255,0.016) 50px,
+    rgba(255,255,255,0.016) 51px
+  );
+  pointer-events: none;
+}
+
+/* large gold glow bottom-left */
+.info-section::after {
+  content: '';
+  position: absolute;
+  bottom: -15%; left: -8%;
+  width: 650px; height: 650px;
+  background: radial-gradient(circle, rgba(200,164,74,0.11) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* ── PAGE HEADING ── */
+.info-section .page-heading {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin: 52px 0 12px;
+  animation: rise 0.7s var(--ease) both;
+}
+
+.info-section .page-heading h1 {
+  font-family: var(--ff-head);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+}
+
+.info-section .page-heading .gold-bar {
+  display: block;
+  width: 56px; height: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  margin: 16px auto 0;
+}
+
+.info-section .page-heading p {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  margin-top: 16px;
+  letter-spacing: 0.02em;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================================================
+   INFO CARDS  — two column on desktop, stacked on mobile
+   ================================================================ */
+.cards-wrapper {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 26px;
+  width: min(860px, calc(100% - 80px));
+  margin-top: 48px;
+}
+
+.info-card {
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(200,164,74,0.2);
+  border-radius: 10px;
+  padding: 48px 40px 44px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    transform   0.32s var(--ease),
+    box-shadow  0.32s var(--ease),
+    border-color 0.32s var(--ease),
+    background  0.32s var(--ease);
+  animation: rise 0.7s var(--ease) both;
+}
+
+.info-card:nth-child(2) { animation-delay: 0.12s; }
+.info-card:nth-child(3) { animation-delay: 0.22s; }
+
+/* gold shimmer top edge */
+.info-card::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 20%; right: 20%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold-2),
+    var(--gold-3),
+    var(--gold-2),
+    transparent
+  );
+  background-size: 200% 100%;
+  border-radius: 99px;
+  opacity: 0;
+  transition: opacity 0.32s var(--ease);
+  animation: shimmer-line 3.5s linear infinite;
+}
+
+@keyframes shimmer-line {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* card number watermark */
+.info-card::after {
+  content: counter(card-counter);
+  counter-increment: card-counter;
+  position: absolute;
+  bottom: 14px; right: 22px;
+  font-family: var(--ff-head);
+  font-size: 6rem;
+  font-weight: 700;
+  color: rgba(200,164,74,0.06);
+  line-height: 1;
+  transition: color 0.32s var(--ease);
+}
+
+.info-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  border-color: rgba(200,164,74,0.45);
+  background: rgba(255,255,255,0.07);
+}
+
+.info-card:hover::before { opacity: 1; }
+.info-card:hover::after  { color: rgba(200,164,74,0.13); }
+
+/* counter reset on wrapper */
+.cards-wrapper { counter-reset: card-counter; }
+
+/* ── card icon slot (optional — add <div class="card-icon">📚</div> ) ── */
+.card-icon {
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+  display: block;
+  transition: transform 0.3s var(--ease);
+}
+.info-card:hover .card-icon { transform: scale(1.12) rotate(-4deg); }
+
+/* ── HEADING ── */
+.info-card h2 {
+  font-family: var(--ff-head);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+/* small gold dash under heading */
+.info-card h2::after {
+  content: '';
+  display: block;
+  width: 36px; height: 2px;
+  background: var(--gold);
+  border-radius: 2px;
+  margin-top: 12px;
+  margin-bottom: 22px;
+  transition: width 0.32s var(--ease);
+}
+.info-card:hover h2::after { width: 56px; }
+
+/* ── PARAGRAPH ── */
+.info-card p {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.68);
+  line-height: 1.9;
+  transition: color 0.25s var(--ease);
+}
+.info-card:hover p { color: rgba(255,255,255,0.85); }
+
+/* ── SPANS ── */
+.info-card span {
+  color: var(--gold-2);
+  font-weight: 500;
+  font-style: italic;
+  font-family: var(--ff-head);
+  font-size: 1.06em;
+}
+
+/* ── OPTIONAL CARD FOOTER LINK ── */
+.info-card .card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 28px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  transition: gap 0.22s var(--ease), color 0.22s;
+}
+.info-card .card-link::after { content: '→'; }
+.info-card:hover .card-link  { gap: 12px; color: var(--gold-2); }
+
+/* ================================================================
+   CLASS BADGES ROW  (optional — paste below .cards-wrapper)
+   <div class="class-badges">
+     <span>Class 1</span><span>Class 2</span>...
+   </div>
+   ================================================================ */
+.class-badges {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  width: min(860px, calc(100% - 80px));
+  margin-top: 36px;
+  animation: rise 0.7s 0.35s var(--ease) both;
+}
+
+.class-badges span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(200,164,74,0.22);
+  padding: 9px 22px;
+  border-radius: 99px;
+  cursor: default;
+  transition:
+    background     0.22s var(--ease),
+    border-color   0.22s var(--ease),
+    color          0.22s var(--ease),
+    transform      0.22s var(--ease);
+}
+
+.class-badges span:hover {
+  background: rgba(200,164,74,0.15);
+  border-color: var(--gold);
+  color: var(--gold-2);
+  transform: translateY(-3px);
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 768px) {
+  .info-section > a   { padding-left: 24px; }
+  .cards-wrapper      { width: calc(100% - 48px); gap: 18px; }
+  .class-badges       { width: calc(100% - 48px); }
+  .info-card          { padding: 36px 26px 32px; }
+}
+
+@media (max-width: 480px) {
+  .info-section .page-heading { margin: 36px 0 8px; }
+  .info-card h2               { font-size: 1.5rem; }
+  .info-card p                { font-size: 0.95rem; }
+}

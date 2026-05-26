@@ -1,0 +1,455 @@
+/* ================================================================
+   HOLY FAITH PUBLIC SCHOOL — gallery.css
+   Matches: style.css + about.css + course.css
+   Theme: Royal Manuscript  |  Page: Achievers Gallery
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+:root {
+  --navy:    #0b2444;
+  --navy-2:  #0f3060;
+  --navy-3:  #163e7a;
+  --gold:    #c8a44a;
+  --gold-2:  #e8c26a;
+  --gold-3:  #f5dfa0;
+  --cream:   #faf6ee;
+  --cream-2: #f2ead8;
+  --white:   #ffffff;
+  --ink:     #141420;
+  --muted:   #5e5e78;
+  --ff-head: 'Cormorant Garamond', Georgia, serif;
+  --ff-body: 'DM Sans', sans-serif;
+  --ease:    cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--ff-body);
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* diagonal stripe texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 50px,
+    rgba(255,255,255,0.016) 50px,
+    rgba(255,255,255,0.016) 51px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* radial gold glow top-center */
+body::after {
+  content: '';
+  position: fixed;
+  top: -20%; left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(200,164,74,0.13) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+::selection { background: var(--gold); color: var(--navy); }
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: var(--navy-2); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 99px; }
+
+/* ================================================================
+   GALLERY CONTAINER
+   ================================================================ */
+.gallery-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 48px 100px;
+}
+
+/* ================================================================
+   PAGE HEADING
+   ================================================================ */
+.main-title {
+  font-family: var(--ff-head);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 700;
+  color: var(--white);
+  text-align: center;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  animation: rise 0.75s var(--ease) both;
+}
+
+.main-title span {
+  color: var(--gold-2);
+  font-style: italic;
+}
+
+/* gold bar under title */
+.main-title::after {
+  content: '';
+  display: block;
+  width: 60px; height: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  margin: 16px auto 0;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 16px;
+  margin-bottom: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  animation: rise 0.75s 0.1s var(--ease) both;
+}
+
+.subtitle::before,
+.subtitle::after {
+  content: '';
+  display: block;
+  width: 36px; height: 1px;
+  background: rgba(200,164,74,0.4);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================================================
+   GALLERY GRID
+   ================================================================ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 32px;
+}
+
+/* ================================================================
+   ACHIEVER CARD
+   ================================================================ */
+.achiever-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(200,164,74,0.18);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    transform    0.35s var(--ease),
+    box-shadow   0.35s var(--ease),
+    border-color 0.35s var(--ease),
+    background   0.35s var(--ease);
+  animation: rise 0.75s var(--ease) both;
+}
+
+.achiever-card:nth-child(2) { animation-delay: 0.12s; }
+.achiever-card:nth-child(3) { animation-delay: 0.22s; }
+.achiever-card:nth-child(4) { animation-delay: 0.32s; }
+
+/* shimmer top line */
+.achiever-card::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 15%; right: 15%;
+  height: 2px;
+  background: linear-gradient(
+    90deg, transparent, var(--gold-2), var(--gold-3), var(--gold-2), transparent
+  );
+  background-size: 200% 100%;
+  border-radius: 99px;
+  opacity: 0;
+  animation: shimmer-line 3.5s linear infinite;
+  transition: opacity 0.3s var(--ease);
+  z-index: 2;
+}
+
+@keyframes shimmer-line {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.achiever-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 28px 64px rgba(0,0,0,0.4);
+  border-color: rgba(200,164,74,0.5);
+  background: rgba(255,255,255,0.07);
+}
+
+.achiever-card:hover::before { opacity: 1; }
+
+/* ── CLASS BADGE TAG (top-left ribbon) ── */
+.badge-tag {
+  position: absolute;
+  top: 16px; left: -1px;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 16px 5px 14px;
+  border-radius: 0 99px 99px 0;
+  z-index: 3;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.25);
+}
+
+/* ── IMAGE WRAPPER ── */
+.card-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--navy-2), var(--navy-3));
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s var(--ease);
+}
+
+.achiever-card:hover .card-img { transform: scale(1.07); }
+
+/* image overlay on hover */
+.card-image-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(11,36,68,0.65) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
+
+.achiever-card:hover .card-image-wrapper::after { opacity: 1; }
+
+/* ── GRADE BADGE ── */
+.grade-badge {
+  position: absolute;
+  bottom: 14px; right: 14px;
+  z-index: 2;
+  width: 44px; height: 44px;
+  background: var(--gold);
+  color: var(--navy);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ff-head);
+  font-size: 1.3rem;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+  border: 2px solid var(--gold-3);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.achiever-card:hover .grade-badge {
+  transform: scale(1.15) rotate(8deg);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+/* ── CARD INFO ── */
+.card-info {
+  padding: 28px 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+}
+
+.student-name {
+  font-family: var(--ff-head);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+/* ── CURIOUS REVEAL (hover to show details) ── */
+.curious-reveal {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.4s var(--ease),
+    opacity    0.35s var(--ease),
+    margin     0.3s var(--ease);
+  margin-bottom: 0;
+}
+
+.achiever-card:hover .curious-reveal {
+  max-height: 80px;
+  opacity: 1;
+  margin-bottom: 18px;
+}
+
+.parent-name {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.slogan {
+  font-family: var(--ff-head);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--gold-2);
+  letter-spacing: 0.02em;
+}
+
+/* ── EXPLORE BUTTON ── */
+.explore-btn {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--ff-body);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: transparent;
+  border: 1.5px solid rgba(200,164,74,0.35);
+  padding: 12px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.28s var(--ease), border-color 0.28s var(--ease);
+  width: 100%;
+}
+
+.explore-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+  z-index: -1;
+}
+
+.explore-btn::after { content: '→'; font-size: 0.9rem; }
+
+.explore-btn:hover              { color: var(--navy); border-color: var(--gold); }
+.explore-btn:hover::before      { transform: scaleX(1); }
+
+/* ================================================================
+   BACK LINK
+   ================================================================ */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  margin-bottom: 52px;
+  transition: gap 0.22s var(--ease), color 0.2s;
+}
+.back-link::before { content: '←'; font-size: 1rem; }
+.back-link:hover   { gap: 14px; color: var(--gold-2); }
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 768px) {
+  .gallery-container { padding: 60px 24px 80px; }
+  .gallery-grid      { gap: 20px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid      { grid-template-columns: 1fr; }
+  .main-title        { font-size: 2rem; }
+}
+/* ================================================================
+   BACK TO HOME BUTTON (TOP ALIGNMENT)
+   ================================================================ */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--ff-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  
+  /* Layout aur spacing */
+  margin-bottom: 40px;
+  padding: 10px 20px;
+  border: 1px solid rgba(200, 164, 74, 0.25);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  
+  /* Smooth transitions */
+  transition: 
+    gap 0.3s var(--ease), 
+    color 0.3s var(--ease), 
+    border-color 0.3s var(--ease),
+    background 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+/* Arrow icon design */
+.back-link::before {
+  content: '←';
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 0.3s var(--ease);
+}
+
+/* Hover effects matching the theme */
+.back-link:hover {
+  gap: 14px; /* Text aur arrow ka gap badhega */
+  color: var(--gold-2); /* Gold color me change hoga */
+  border-color: rgba(200, 164, 74, 0.6); /* Border thoda shine karega */
+  background: rgba(200, 164, 74, 0.06); /* Background me halka gold tint */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover karne par arrow thoda peeche move hoga */
+.back-link:hover::before {
+  transform: translateX(-4px);
+}
